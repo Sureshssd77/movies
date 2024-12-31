@@ -42,16 +42,16 @@ MOVIE_UPDATE_CHANNEL = int(environ.get('MOVIE_UPDATE_CHANNEL', '0'))
 SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'https://t.me/') #Support group link ( make sure bot is admin )
 #---------------------------------------------------------------
 #---------------------------------------------------------------
-IS_VERIFY = is_enabled('IS_VERIFY',False)
+IS_VERIFY = is_enabled('IS_VERIFY',True)
 #---------------------------------------------------------------
 TUTORIAL = environ.get("TUTORIAL", "https://t.me/")
 VERIFY_IMG = environ.get("VERIFY_IMG", "https://graph.org/file/1669ab9af68eaa62c3ca4.jpg")
-SHORTENER_API = environ.get("SHORTENER_API", "")
-SHORTENER_WEBSITE = environ.get("SHORTENER_WEBSITE", '')
-SHORTENER_API2 = environ.get("SHORTENER_API2", "")
-SHORTENER_WEBSITE2 = environ.get("SHORTENER_WEBSITE2", '')
-SHORTENER_API3 = environ.get("SHORTENER_API3", "")
-SHORTENER_WEBSITE3 = environ.get("SHORTENER_WEBSITE3", '')
+SHORTENER_API = environ.get("SHORTENER_API", "abf4946daf36969475b795fa16a3e1613db3f9bb")
+SHORTENER_WEBSITE = environ.get("SHORTENER_WEBSITE", 'http://omegalinks.in')
+SHORTENER_API2 = environ.get("SHORTENER_API2", "abf4946daf36969475b795fa16a3e1613db3f9bb")
+SHORTENER_WEBSITE2 = environ.get("SHORTENER_WEBSITE2", 'http://omegalinks.in')
+SHORTENER_API3 = environ.get("SHORTENER_API3", "abf4946daf36969475b795fa16a3e1613db3f9bb")
+SHORTENER_WEBSITE3 = environ.get("SHORTENER_WEBSITE3", 'http://omegalinks.in')
 TWO_VERIFY_GAP = int(environ.get('TWO_VERIFY_GAP', "14400"))
 THREE_VERIFY_GAP = int(environ.get('THREE_VERIFY_GAP', "14400"))
 #---------------------------------------------------------------
