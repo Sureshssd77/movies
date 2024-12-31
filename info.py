@@ -98,7 +98,7 @@ LINK_MODE = is_enabled('LINK_MODE', True)
 STREAM_MODE = bool(environ.get('STREAM_MODE', True)) # Set True or Flase
 # Online Stream and Download
 
-MULTI_CLIENT = False
+MULTI_CLIENT = True 
 SLEEP_THRESHOLD = int(environ.get('SLEEP_THRESHOLD', '60'))
 PING_INTERVAL = int(environ.get("PING_INTERVAL", "1200"))  # 20 minutes
 if 'DYNO' in environ:
