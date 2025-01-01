@@ -34,9 +34,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 FORCESUB_BUTTONS = InlineKeyboardMarkup(
     [[InlineKeyboardButton("📢 अपडेट चैनल से जुड़ें", url="https://t.me/ssdbackup")]]
-    
-    # Allow access if the user is subscribed
-    await message.reply_text("✅ आप चैनल से जुड़े हैं। अब आप मूवी प्राप्त कर सकते हैं।")
+
     
     TTS_TXT="""
 <b>• sᴇɴᴅ /tts ᴛᴏ ᴜsᴇ ᴛʜɪs ғᴇᴀᴛᴜʀᴇ</b>"""
