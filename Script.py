@@ -34,53 +34,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 FORCESUB_BUTTONS = InlineKeyboardMarkup(
     [[InlineKeyboardButton("📢 अपडेट चैनल से जुड़ें", url="https://t.me/ssdbackup")]]
-)
-
-# Example Command for Force Subscription
-@Client.on_message(filters.command("fsub") & filters.user(ADMINS))
-async def set_force_sub(bot, message):
-    chat_id = message.command[1] if len(message.command) > 1 else None
-    if not chat_id:
-        await message.reply_text("⚠️ कृपया एक वैध चैनल ID प्रदान करें।")
-        return
-
-    # Save chat_id to database (Example Database Function)
-    await db.set_force_sub(chat_id)
-    await message.reply_text(f"✅ Force Subscription सेट कर दिया गया है: {chat_id}")
-
-@Client.on_message(filters.command("del_fsub") & filters.user(ADMINS))
-async def remove_force_sub(bot, message):
-    await db.remove_force_sub()
-    await message.reply_text("❌ Force Subscription हटा दिया गया है।")
-
-@Client.on_message(filters.command("show_fsub") & filters.user(ADMINS))
-async def show_force_sub(bot, message):
-    chat_id = await db.get_force_sub()
-    if not chat_id:
-        await message.reply_text("⚠️ Force Subscription सक्रिय नहीं है।")
-        return
-    await message.reply_text(f"📢 Force Subscription सेट है: {chat_id}")
-
-# Applying Force Subscription Check
-@Client.on_message(filters.private & ~filters.user(ADMINS))
-async def check_subscription(bot, message):
-    user_id = message.from_user.id
-    chat_id = await db.get_force_sub()
-    if not chat_id:
-        return
-
-    # Check if user is a member of the force subscription channel
-    try:
-        member = await bot.get_chat_member(chat_id, user_id)
-        if member.status not in ["member", "administrator", "creator"]:
-            raise Exception("Not a member")
-    except Exception:
-        await message.reply_text(
-            FORCESUB_TEXT,
-            reply_markup=FORCESUB_BUTTONS
-        )
-        return
-
+    
     # Allow access if the user is subscribed
     await message.reply_text("✅ आप चैनल से जुड़े हैं। अब आप मूवी प्राप्त कर सकते हैं।")
     
