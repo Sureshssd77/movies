@@ -28,13 +28,6 @@ FSUB_TXT = """<b>• ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ᴀɴᴅ �
 
 ᴀғᴛᴇʀ ᴛʜᴀᴛ, ᴛʀʏ ᴀᴄᴄᴇssɪɴɢ ᴛʜᴀᴛ ᴍᴏᴠɪᴇ ᴛʜᴇɴ, ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ "ᴛʀʏ ᴀɢᴀɪɴ" ʙᴜᴛᴛᴏɴ.
     </b>"""
-
-# Button Implementation
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
-FORCESUB_BUTTONS = InlineKeyboardMarkup(
-    [[InlineKeyboardButton("📢 अपडेट चैनल से जुड़ें", url="https://t.me/ssdbackup")]]
-
     
     TTS_TXT="""
 <b>• sᴇɴᴅ /tts ᴛᴏ ᴜsᴇ ᴛʜɪs ғᴇᴀᴛᴜʀᴇ</b>"""
