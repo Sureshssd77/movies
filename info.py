@@ -38,7 +38,7 @@ LOG_VR_CHANNEL = int(environ.get('LOG_VR_CHANNEL', '0'))
 AUTH_CHANNEL=-1001895183525  # यहां पर आपकी चैनल ID डालें
 SUPPORT_GROUP=-1002331330326  # यहां पर आपकी चैनल ID डालें
 REQUEST_CHANNEL=-1002110528714  # रिक्वेस्ट चैनल ID
-MOVIE_UPDATE_CHANNEL=-1001916143726 # आपकी चैनल ID
+MOVIE_UPDATE_CHANNEL=-1001916143726 
 SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'https://t.me/+-fkNjT9g_-hkYjA1') #Support group link ( make sure bot is admin )
 #---------------------------------------------------------------
 #---------------------------------------------------------------
