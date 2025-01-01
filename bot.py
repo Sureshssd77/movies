@@ -42,15 +42,15 @@ from Jisshu.bot.clients import initialize_clients
 
 ppath = "plugins/*.py"
 files = glob.glob(ppath)
-JisshuBot.start()
+SSDBot.start()
 loop = asyncio.get_event_loop()
 
 
-async def Jisshu_start():
+async def SSD_start():
     print('\n')
     print('Initalizing The Movie Provider Bot')
-    bot_info = await JisshuBot.get_me()
-    JisshuBot.username = bot_info.username
+    bot_info = await SSDBot.get_me()
+    SSDBot.username = bot_info.username
     await initialize_clients()
     for name in files:
         with open(name) as a:
@@ -69,18 +69,18 @@ async def Jisshu_start():
     temp.BANNED_USERS = b_users
     temp.BANNED_CHATS = b_chats
     await Media.ensure_indexes()
-    me = await JisshuBot.get_me()
+    me = await SSDBot.get_me()
     temp.ME = me.id
     temp.U_NAME = me.username
     temp.B_NAME = me.first_name
-    JisshuBot.username = '@' + me.username
+    SSDBot.username = '@' + me.username
     logging.info(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
     logging.info(script.LOGO)
     tz = pytz.timezone('Asia/Kolkata')
     today = date.today()
     now = datetime.now(tz)
     time = now.strftime("%H:%M:%S %p")
-    await JisshuBot.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(today, time))
+    await SSDBot.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(today, time))
     app = web.AppRunner(await web_server())
     await app.setup()
     bind_address = "0.0.0.0"
@@ -90,6 +90,6 @@ async def Jisshu_start():
 
 if __name__ == '__main__':
     try:
-        loop.run_until_complete(Jisshu_start())
+        loop.run_until_complete(SSD_start())
     except KeyboardInterrupt:
         logging.info('Service Stopped Bye 👋')
