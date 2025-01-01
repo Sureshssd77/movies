@@ -31,14 +31,14 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 #---------------------------------------------------------------
 #---------------------------------------------------------------
 #----------- There will be channel id add in all these ---------
-LOG_API_CHANNEL=-1002429570370  # यहां आपकी चैनल ID डालें 
+LOG_API_CHANNEL = int(environ.get('LOG_API_CHANNEL', '0'))  
 BIN_CHANNEL = int(environ.get('BIN_CHANNEL','0'))
 DELETE_CHANNELS = int(environ.get('DELETE_CHANNELS','0'))
 LOG_VR_CHANNEL = int(environ.get('LOG_VR_CHANNEL', '0'))
-AUTH_CHANNEL=-1001895183525  # यहां पर आपकी चैनल ID डालें
-SUPPORT_GROUP=-1002331330326  # यहां पर आपकी चैनल ID डालें
-REQUEST_CHANNEL=-1002110528714  # रिक्वेस्ट चैनल ID
-MOVIE_UPDATE_CHANNEL=-1001916143726 
+auth_channel = environ.get('AUTH_CHANNEL', '')
+SUPPORT_GROUP = int(environ.get('SUPPORT_GROUP', '0'))
+request_channel = environ.get('REQUEST_CHANNEL', '0')
+MOVIE_UPDATE_CHANNEL=-1001916143726
 SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'https://t.me/+-fkNjT9g_-hkYjA1') #Support group link ( make sure bot is admin )
 #---------------------------------------------------------------
 #---------------------------------------------------------------
