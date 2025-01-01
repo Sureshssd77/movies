@@ -1,95 +1,94 @@
-
-import sys
-import glob
-import importlib
-from pathlib import Path
-from pyrogram import idle
 import logging
-import logging.config
-
-# Get logging configurations
-logging.config.fileConfig('logging.conf')
-logging.getLogger().setLevel(logging.INFO)
-logging.getLogger("pyrogram").setLevel(logging.ERROR)
-logging.getLogger("imdbpy").setLevel(logging.ERROR)
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
-logging.getLogger("aiohttp").setLevel(logging.ERROR)
-logging.getLogger("aiohttp.web").setLevel(logging.ERROR)
-
-
-from pyrogram import Client, __version__
-from pyrogram.raw.all import layer
-from database.ia_filterdb import Media
-from database.users_chats_db import db
-from info import *
-from utils import temp
-from typing import Union, Optional, AsyncGenerator
-from pyrogram import types
-from Script import script 
-from datetime import date, datetime 
+from pyrogram import Client, filters
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from database.jsreferdb import referdb
+from utils import get_readable_time
+from Script import script
 import pytz
-from aiohttp import web
-from plugins import web_server
+from datetime import datetime as dt
 
-import asyncio
-from pyrogram import idle
-from Jisshu.bot import JisshuBot
-from Jisshu.util.keepalive import ping_server
-from Jisshu.bot.clients import initialize_clients
+# Setup logging
+logger = logging.getLogger(__name__)
 
-ppath = "plugins/*.py"
-files = glob.glob(ppath)
-SSDBot.start()
-loop = asyncio.get_event_loop()
+# Constants
+VERIFY_IMG = "https://graph.org/file/75fa3914579071acedfe1-f9c83b1ced674991a9.jpg"
+TWO_VERIFY_GAP = 5  # 5 minutes
+U_NAME = "#ssd_movies_providerbot"
+DATABASE_URI = "mongodb+srv://sureshjaat2612:dilip261210@ssd.7oyrv.mongodb.net/?retryWrites=true&w=majority&appName=SSD"
+VERIFY_COMPLETE_TEXT = "You are verified, now you can request movies."
+ADMIN = "@suresh_jaat_7"
 
-
-async def SSD_start():
-    print('\n')
-    print('Initalizing The Movie Provider Bot')
-    bot_info = await SSDBot.get_me()
-    SSDBot.username = bot_info.username
-    await initialize_clients()
-    for name in files:
-        with open(name) as a:
-            patt = Path(a.name)
-            plugin_name = patt.stem.replace(".py", "")
-            plugins_dir = Path(f"plugins/{plugin_name}.py")
-            import_path = "plugins.{}".format(plugin_name)
-            spec = importlib.util.spec_from_file_location(import_path, plugins_dir)
-            load = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(load)
-            sys.modules["plugins." + plugin_name] = load
-            print("The Movie Provider Imported => " + plugin_name)
-    if ON_HEROKU:
-        asyncio.create_task(ping_server())
-    b_users, b_chats = await db.get_banned()
-    temp.BANNED_USERS = b_users
-    temp.BANNED_CHATS = b_chats
-    await Media.ensure_indexes()
-    me = await SSDBot.get_me()
-    temp.ME = me.id
-    temp.U_NAME = me.username
-    temp.B_NAME = me.first_name
-    SSDBot.username = '@' + me.username
-    logging.info(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
-    logging.info(script.LOGO)
-    tz = pytz.timezone('Asia/Kolkata')
-    today = date.today()
-    now = datetime.now(tz)
-    time = now.strftime("%H:%M:%S %p")
-    await SSDBot.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(today, time))
-    app = web.AppRunner(await web_server())
-    await app.setup()
-    bind_address = "0.0.0.0"
-    await web.TCPSite(app, bind_address, PORT).start()
-    await idle()
-
-
-if __name__ == '__main__':
+# Helper function to handle verification
+async def handle_verification(client, message, user_id, verify_id):
     try:
-        loop.run_until_complete(SSD_start())
-    except KeyboardInterrupt:
-        logging.info('Service Stopped Bye 👋')
+        verify_id_info = await db.get_verify_id_info(user_id, verify_id)
+        if not verify_id_info or verify_id_info["verified"]:
+            await message.reply("<b>ʟɪɴᴋ ᴇxᴘɪʀᴇᴅ ᴛʀʏ ᴀɢᴀɪɴ...</b>")
+            return False
+        return True
+    except Exception as e:
+        logger.error(f"Error while handling verification for user {user_id}: {str(e)}")
+        await message.reply("Error occurred during verification process.")
+        return False
+
+# Helper function to send the verification completion message
+async def send_verification_message(client, message, user_id, verify_id, file_id, settings, num):
+    btn = [[
+        InlineKeyboardButton("‼️ ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ ɢᴇᴛ ꜰɪʟᴇ ‼️", url=f"https://telegram.me/{U_NAME}?start=file_{settings['group_id']}_{file_id}"),
+    ]]
+    reply_markup = InlineKeyboardMarkup(btn)
+    msg = VERIFY_COMPLETE_TEXT
+    await message.reply_photo(
+        photo=VERIFY_IMG,
+        caption=msg.format(message.from_user.mention, get_readable_time(TWO_VERIFY_GAP)),
+        reply_markup=reply_markup,
+        parse_mode="HTML"
+    )
+
+# Command to generate invite link
+@Client.on_message(filters.command("invite") & filters.private & filters.user(ADMIN))
+async def invite(client, message):
+    toGenInvLink = message.command[1]
+    if len(toGenInvLink) != 14:
+        await message.reply("Invalid chat id\nAdd -100 before chat id if You did not add any yet.")
+        return
+
+    try:
+        link = await client.export_chat_invite_link(toGenInvLink)
+        await message.reply(link)
+    except Exception as e:
+        logger.error(f"Error generating invite link for chat {toGenInvLink}: {e}")
+        await message.reply(f"Error generating invite link: {e}")
+
+# Start command with verification
+@Client.on_message(filters.command("start") & filters.incoming)
+async def start(client: Client, message):
+    user_id = message.from_user.id
+    pm_mode = False
+
+    try:
+        data = message.command[1]
+        if data.startswith('pm_mode_'):
+            pm_mode = True
+    except:
+        pass
+
+    # Verification Process
+    if len(message.command) == 2 and message.command[1].startswith('notcopy'):
+        _, userid, verify_id, file_id = message.command[1].split("_", 3)
+        user_id = int(userid)
+        grp_id = temp.CHAT.get(user_id, 0)
+
+        # Handle verification logic
+        if await handle_verification(client, message, user_id, verify_id):
+            settings = await get_settings(grp_id)
+            num = 2
+            await send_verification_message(client, message, user_id, verify_id, file_id, settings, num)
+        return
+
+    # Referral Process
+    if len(message.command) == 2 and message.command[1].startswith("reff_"):
+        user_id = int(message.command[1].split("_")[1])
+
+        if user_id == message.from_user.id:
+            await message.reply_text("
