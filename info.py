@@ -13,20 +13,20 @@ def is_enabled(value, default):
 #---------------------------------------------------------------
 #---------------------------------------------------------------         ,
 SESSION = environ.get('SESSION', 'Media_search')
-API_ID = int(environ.get('API_ID', '27547358'))
-API_HASH = environ.get('API_HASH', '675a9c08fc93de993ae6aff91d25bf29')
-BOT_TOKEN = environ.get('BOT_TOKEN', '7545488448:AAEsvwuElZJBB0Y9VMkkSzhqcHnHZGt6MYI')
+API_ID = int(environ.get('API_ID', '22506926'))
+API_HASH = environ.get('API_HASH', '34fe7b7d19572aae39c6db80e151d9f7')
+BOT_TOKEN = environ.get('BOT_TOKEN', '7993719107:AAEr0zW27iq3aj0maD28cLjLM20EOQ_nYW8')
 #---------------------------------------------------------------
 #---------------------------------------------------------------
-ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '2044702863').split()]
-USERNAME = environ.get('USERNAME', "https://t.me/Itzofficialverma") # ADMIN USERNAME
-LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-4736083858'))
-MOVIE_GROUP_LINK = environ.get('MOVIE_GROUP_LINK', 'https://t.me/+Ffyql2XZsndlNzFl')
-CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '-4624239556').split()]
+ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '6151975257').split()]
+USERNAME = environ.get('USERNAME', "https://t.me/suresh_jaat_7") # ADMIN USERNAME
+LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002429570370'))
+MOVIE_GROUP_LINK = environ.get('MOVIE_GROUP_LINK', 'https://t.me/+es2f_cHp0_Y5YjM1')
+CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '-1002144001843').split()]
 #---------------------------------------------------------------
 #---------------------------------------------------------------
-DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://mohit1:mohit1@mohitverma.piin9.mongodb.net/?retryWrites=true&w=majority&appName=mohitverma")
-DATABASE_NAME = environ.get('DATABASE_NAME', "mohitverma")
+DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://sureshjaat2612:dilip261210@ssd.7oyrv.mongodb.net/?retryWrites=true&w=majority&appName=SSD")
+DATABASE_NAME = environ.get('DATABASE_NAME', "ssdmovies")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 #---------------------------------------------------------------
 #---------------------------------------------------------------
@@ -68,10 +68,10 @@ REQUEST_CHANNEL = int(request_channel) if request_channel and id_pattern.search(
 #---------------------------------------------------------------
 #---------------------------------------------------------------
 #---------------------------------------------------------------
-START_IMG = (environ.get('START_IMG', 'https://i.ibb.co/qpxpGmC/image.jpg https://i.ibb.co/DQ35zLZ/image.jpg')).split()
+START_IMG = (environ.get('START_IMG', 'https://graph.org/file/1118970f6a47013b7ec47-1903a973000f540eca.jpg')).split()
 FORCESUB_IMG = environ.get('FORCESUB_IMG', 'https://i.ibb.co/ZNC1Hnb/ad3f2c88a8f2.jpg')
 REFER_PICS = (environ.get("REFER_PICS", "https://envs.sh/PSI.jpg")).split() 
-PAYPICS = (environ.get('PAYPICS', 'https://envs.sh/_kA.jpg')).split()
+PAYPICS = (environ.get('PAYPICS', 'https://graph.org/file/22f632ce2f54cb2f5fe86-dade858bfce22ab65c.jpg')).split()
 SUBSCRIPTION = (environ.get('SUBSCRIPTION', 'https://graph.org/file/9f3f47c690bbcc67633c2.jpg'))
 REACTIONS = ["👀", "😱", "🔥", "😍", "🎉", "🥰", "😇", "⚡"]
 #---------------------------------------------------------------
