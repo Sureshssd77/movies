@@ -15,7 +15,7 @@ def is_enabled(value, default):
 SESSION = environ.get('SESSION', 'Media_search')
 API_ID = int(environ.get('API_ID', '22506926'))
 API_HASH = environ.get('API_HASH', '34fe7b7d19572aae39c6db80e151d9f7')
-BOT_TOKEN = environ.get('BOT_TOKEN', '7993719107:AAEr0zW27iq3aj0maD28cLjLM20EOQ_nYW8')
+BOT_TOKEN = environ.get('BOT_TOKEN', '8004078816:AAFpANlxyG1emrSLYYuJXgEecNGJIvme78c')
 #---------------------------------------------------------------
 #---------------------------------------------------------------
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '6151975257').split()]
@@ -25,7 +25,7 @@ MOVIE_GROUP_LINK = environ.get('MOVIE_GROUP_LINK', 'https://t.me/+es2f_cHp0_Y5Yj
 CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '-1002144001843').split()]
 #---------------------------------------------------------------
 #---------------------------------------------------------------
-DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://sureshjaat2612:dilip261210@ssd.7oyrv.mongodb.net/?retryWrites=true&w=majority&appName=SSD")
+DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://dilipdewasi7759:<NMzFkZqWZdi1GDG4>@ssdmovies.2nqad.mongodb.net/?retryWrites=true&w=majority&appName=ssdmovies")
 DATABASE_NAME = environ.get('DATABASE_NAME', "ssdmovies")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 #---------------------------------------------------------------
